@@ -1,6 +1,6 @@
 import datetime
 
-from venv.src import PlayList
+from src import PlayList
 
 if __name__ == '__main__':
     pl = PlayList('PLv_zOGKKxVpj-n2qLkEM2Hj96LO6uqgQw')

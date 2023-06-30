@@ -1,4 +1,4 @@
-from venv.src import Video, PLVideo
+from src import Video, PLVideo
 
 if __name__ == '__main__':
     # Создаем два экземпляра класса
