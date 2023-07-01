@@ -2,6 +2,8 @@ from googleapiclient.discovery import build
 import os
 import json
 
+# ключ для переменной окружения
+YOUTUBE_API_KEY: str = os.getenv('YT_API_KEY')
 
 class Channel:
     """Класс для ютуб-канала"""
@@ -15,10 +17,8 @@ class Channel:
         """
         Возвращает объект для работы с YouTube API
         """
-        # ключ для переменной окружения
-        api_key: str = os.getenv('YT_API_KEY')
         # объект для работы с API
-        cls.youtube = build('youtube', 'v3', developerKey=api_key)
+        cls.youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
         return cls.youtube
 
     @property
