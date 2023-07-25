@@ -12,6 +12,78 @@ class Channel:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
         self.__channel_id = channel_id
 
+
+    def __str__(self):
+        """
+        Выводит название канала и ссылку на канал
+        """
+        return f'{self.title} ({self.url})'
+
+
+    def __add__(self, other):
+        """
+        Складывет подписчиков каналов
+        """
+        return self.subscriber_count + other.subscriber_count
+
+
+    def __sub__(self, other):
+        """
+        Вычисляет разницу подписчиков каналов
+        """
+        return int(self.subscriber_count) - int(other.subscriber_count)
+
+
+    def __gt__(self, other):
+        """
+        Сравнение подписчиков через оператор "больше"
+        """
+        if self.subscriber_count > other.subscriber_count:
+            return True
+        else:
+            return False
+
+
+    def __ge__(self, other):
+        """
+        Сравнение подписчиков через оператор "больше или равно"
+        """
+        if self.subscriber_count >= other.subscriber_count:
+            return True
+        else:
+            return False
+
+
+    def __lt__(self, other):
+        """
+        Сравнение подписчиков через оператор "меньше"
+        """
+        if self.subscriber_count < other.subscriber_count:
+            return True
+        else:
+            return False
+
+
+    def __le__(self, other):
+        """
+        Сравнение подписчиков через оператор "меньше или равно"
+        """
+        if self.subscriber_count <= other.subscriber_count:
+            return True
+        else:
+            return False
+
+
+    def __eq__(self, other):
+        """
+        Приравнивание чисел подписчиков друг к другу через "="
+        """
+        if self.subscriber_count == other.subscriber_count:
+            return True
+        else:
+            return False
+
+
     @classmethod
     def get_service(cls):
         """
