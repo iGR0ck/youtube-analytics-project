@@ -19,12 +19,11 @@ class Channel:
         """
         return f'{self.title} ({self.url})'
 
-
     def __add__(self, other):
-        """
-        Складывет подписчиков каналов
-        """
-        return self.subscriber_count + other.subscriber_count
+        if type(other) == Channel:
+            return self.subscriber_count + other.subscriber_count
+        else:
+            raise TypeError
 
 
     def __sub__(self, other):
@@ -33,55 +32,39 @@ class Channel:
         """
         return int(self.subscriber_count) - int(other.subscriber_count)
 
-
     def __gt__(self, other):
         """
         Сравнение подписчиков через оператор "больше"
         """
-        if self.subscriber_count > other.subscriber_count:
-            return True
-        else:
-            return False
+        return self.subscriber_count > other.subscriber_count
 
 
     def __ge__(self, other):
         """
         Сравнение подписчиков через оператор "больше или равно"
         """
-        if self.subscriber_count >= other.subscriber_count:
-            return True
-        else:
-            return False
+        return self.subscriber_count >= other.subscriber_count
 
 
     def __lt__(self, other):
         """
         Сравнение подписчиков через оператор "меньше"
         """
-        if self.subscriber_count < other.subscriber_count:
-            return True
-        else:
-            return False
+        return self.subscriber_count < other.subscriber_count
 
 
     def __le__(self, other):
         """
         Сравнение подписчиков через оператор "меньше или равно"
         """
-        if self.subscriber_count <= other.subscriber_count:
-            return True
-        else:
-            return False
+        return self.subscriber_count <= other.subscriber_count
 
 
     def __eq__(self, other):
         """
         Приравнивание чисел подписчиков друг к другу через "="
         """
-        if self.subscriber_count == other.subscriber_count:
-            return True
-        else:
-            return False
+        return self.subscriber_count == other.subscriber_count
 
 
     @classmethod
