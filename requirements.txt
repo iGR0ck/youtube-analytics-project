@@ -23,3 +23,16 @@ six==1.16.0
 uritemplate==4.1.1
 uritemplate.py==3.0.2
 urllib3==1.26.16
+
+json-extensions~=0.2.1
+pip~=23.1.2
+attrs~=23.1.0
+wheel~=0.40.0
+cffi~=1.15.1
+setuptools~=67.6.1
+packaging~=23.1
+zipp~=3.15.0
+build~=0.10.0
+keyring~=23.13.1
+platformdirs~=3.8.0
+isodate~=0.6.1

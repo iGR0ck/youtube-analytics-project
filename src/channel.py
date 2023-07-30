@@ -10,7 +10,7 @@ class Channel:
 
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
-        self.id = channel_id
+        self.channel_id = channel_id
 
 
     def __str__(self):
@@ -81,7 +81,7 @@ class Channel:
         """
         Возвращает информацию по каналу.
         """
-        channel = Channel.get_service().channels().list(id=self.id, part='snippet,statistics').execute()
+        channel = Channel.get_service().channels().list(id=self.channel_id, part='snippet,statistics').execute()
         return channel
 
     def print_info(self) -> None:
