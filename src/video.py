@@ -10,6 +10,10 @@ class Video:
 
     def __init__(self, video_id: str) -> None:
         self.video_id = video_id
+        self.title = self.video_info["items"][0]["snippet"]["title"]
+        self.url = self.video_info["items"][0]["snippet"]["thumbnails"]["default"]["url"]
+        self.view_count = self.video_info["items"][0]["statistics"]["viewCount"]
+        self.like_count = self.video_info["items"][0]["statistics"]["likeCount"]
 
 
     def __str__(self):
@@ -37,41 +41,9 @@ class Video:
         video = Video.get_service().videos().list(id=self.video_id, part='snippet,statistics').execute()
         return video
 
-    @property
-    def title(self):
-        """
-        Показывает заголовок видео
-        """
-        return self.video_info["items"][0]["snippet"]["title"]
-
-    @property
-    def url(self):
-        """
-        Показывает ссылку на видео
-        """
-        return self.video_info["items"][0]["snippet"]["thumbnails"]["default"]["url"]
-
-    @property
-    def view_count(self):
-        """
-        Показывает кол-во просмотров
-        """
-        return self.video_info["items"][0]["statistics"]["viewCount"]
-
-    @property
-    def like_count(self):
-        """
-        Показывает кол-во лайков
-        """
-        return self.video_info["items"][0]["statistics"]["likeCount"]
-
 
 class PLVideo(Video):
 
     def __init__(self, video_id: str, playlist_id: str) -> None:
-        self.video_id = video_id
+        super().__init__(video_id)
         self.playlist_id = playlist_id
-        self.__title = super().title
-        self.__url = super().url
-        self.__view_count = super().view_count
-        self.__like_count = super().like_count
