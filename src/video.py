@@ -1,4 +1,5 @@
 from googleapiclient.discovery import build
+import json
 import os
 
 
@@ -40,6 +41,12 @@ class Video:
         """
         video = Video.get_service().videos().list(id=self.video_id, part='snippet,statistics').execute()
         return video
+
+
+    def print_info(self) -> None:
+        """Выводит в консоль информацию о канале в json."""
+        info = json.dumps(self.video_info, indent=2, ensure_ascii=False)
+        return info
 
 
 class PLVideo(Video):
