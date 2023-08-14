@@ -1,5 +1,4 @@
-from googleapiclient.discovery import build
-import json
+from src.channel import Channel
 import os
 
 
@@ -11,10 +10,11 @@ class Video:
 
     def __init__(self, video_id: str) -> None:
         self.video_id = video_id
-        self.title = self.video_info["items"][0]["snippet"]["title"]
-        self.url = self.video_info["items"][0]["snippet"]["thumbnails"]["default"]["url"]
-        self.view_count = self.video_info["items"][0]["statistics"]["viewCount"]
-        self.like_count = self.video_info["items"][0]["statistics"]["likeCount"]
+        self.title = None
+        self.url = None
+        self.view_count = None
+        self.like_count = None
+        self.correct_id()
 
 
     def __str__(self):
@@ -23,30 +23,20 @@ class Video:
         """
         return f'{self.title}'
 
-
-    @classmethod
-    def get_service(cls):
+    def correct_id(self):
         """
-        Возвращает объект для работы с YouTube API
+        Метод проверяет можно ли получить данные о видео,
+        если нет то выводит: Exception error
         """
-        # объект для работы с API
-        cls.youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
-        return cls.youtube
-
-
-    @property
-    def video_info(self):
-        """
-        Возвращает информацию по видео.
-        """
-        video = Video.get_service().videos().list(id=self.video_id, part='snippet,statistics').execute()
-        return video
-
-
-    def print_info(self) -> None:
-        """Выводит в консоль информацию о канале в json."""
-        info = json.dumps(self.video_info, indent=2, ensure_ascii=False)
-        return info
+        try:
+            youtube = Channel.get_service().videos().list(part='snippet,statistics', id=self.video_id).execute()
+            video_data = youtube.get('items')[0]
+            self.title = video_data.get('snippet').get('title')
+            self.url = f'https://www.youtube.com/watch?v={self.video_id}'
+            self.view_count = int(video_data.get('statistics').get('viewCount'))
+            self.like_count = int(video_data.get('statistics').get('likeCount'))
+        except Exception:
+            print('Exception error : Невозможно получить данные о видео')
 
 
 class PLVideo(Video):
